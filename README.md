@@ -17,7 +17,7 @@
   - [🏗️ Project Structure](#️-project-structure)
   - [✨ Features](#-features)
     - [🔗 Smart Contract Features](#-smart-contract-features)
-    - [🌐 Frontend Features (In Development)](#-frontend-features-in-development)
+    - [🌐 Frontend Features](#-frontend-features)
   - [🎯 Architecture](#-architecture)
   - [🚀 Getting Started](#-getting-started)
     - [📦 Prerequisites](#-prerequisites)
@@ -32,10 +32,10 @@
     - [Smart Contract Testing](#smart-contract-testing)
   - [🚀 Deployment](#-deployment)
     - [Smart Contract Deployment](#smart-contract-deployment)
-    - [Frontend Deployment (Planned)](#frontend-deployment-planned)
+    - [Frontend Deployment](#frontend-deployment)
   - [🔒 Security](#-security)
     - [Smart Contract Security](#smart-contract-security)
-    - [Frontend Security (Planned)](#frontend-security-planned)
+    - [Frontend Security](#frontend-security)
     - [Development Guidelines](#development-guidelines)
   - [🧒 Author](#-author)
   - [📜 License](#-license)
@@ -64,8 +64,14 @@ ocean-faucet/
 │   ├── 📁 script/                # Deployment scripts
 │   ├── foundry.toml              # Foundry configuration
 │   └── README.md                 # Contract documentation
-├── 📁 frontend/                  # Frontend Application (In Progress)
-│   └── [Coming Soon]             # Modern web interface
+├── 📁 ocean-faucet-ui/           # Frontend Application
+│   ├── 📁 src/                   # Source code
+│   │   ├── 📁 app/               # Next.js app directory
+│   │   ├── 📁 components/        # React components
+│   │   ├── 📁 providers/         # Context providers
+│   │   └── 📁 lib/               # Utility functions
+│   ├── package.json              # Dependencies
+│   └── README.md                 # Frontend documentation
 ├── LICENSE                       # MIT License
 └── README.md                     # This file
 ```
@@ -81,13 +87,17 @@ ocean-faucet/
 - ✅ **Event Logging**: Comprehensive transaction tracking
 - ✅ **100% Test Coverage**: Unit and fuzz testing
 
-### 🌐 Frontend Features (In Development)
+### 🌐 Frontend Features
 
-- 🔄 **Modern Web Interface**: Next.js with TypeScript
-- 🔄 **Wallet Integration**: MetaMask and other wallet support
-- 🔄 **Real-time Updates**: Live claim status and cooldown timers
-- 🔄 **Responsive Design**: Mobile and desktop optimized
-- 🔄 **Transaction History**: User claim tracking
+- ✅ **Next.js with TypeScript**: Modern React framework setup
+- ✅ **Wallet Integration**: RainbowKit + wagmi implementation
+- ✅ **Multi-Chain Support**: Mainnet, testnets, and local networks
+- ✅ **Theme System**: Dark/light mode with next-themes
+- ✅ **UI Components**: Shadcn/ui component library
+- ✅ **Responsive Header**: With wallet connection and theme toggle
+- 🔄 **Faucet Interface**: Token claiming UI (in progress)
+- 🔄 **Transaction History**: User claim tracking (planned)
+- 🔄 **Real-time Updates**: Live claim status and cooldown timers (planned)
 
 ## 🎯 Architecture
 
@@ -146,10 +156,10 @@ graph TB
    forge test
    ```
 
-3. **Set up the frontend** (When available)
+3. **Set up the frontend**
 
    ```bash
-   cd frontend
+   cd ocean-faucet-ui
    bun install
    bun run dev
    ```
@@ -192,13 +202,37 @@ forge script script/OceanTokenDeployer.s.sol --rpc-url http://localhost:8545 --p
 
 ### 🌐 Frontend Development
 
-The frontend is currently in development. Planned tech stack:
+The frontend is built with modern web technologies and Web3 integration:
 
-- **Framework**: Next.js with TypeScript
+**Tech Stack:**
+
+- **Framework**: Next.js 15 with TypeScript
 - **Runtime**: Bun.js
 - **Styling**: Tailwind CSS
-- **Blockchain Integration**: wagmi
-- **Build Tool**: Bun
+- **Web3**: wagmi + RainbowKit
+- **Theme**: next-themes with dark/light mode
+- **State Management**: TanStack Query
+
+**Development Commands:**
+
+```bash
+cd ocean-faucet-ui
+
+# Install dependencies
+bun install
+
+# Start development server
+bun run dev
+
+# Build for production
+bun run build
+
+# Run linting
+bun run lint
+
+# Type checking
+bun run typecheck
+```
 
 ## 📊 Project Status
 
@@ -211,14 +245,19 @@ The frontend is currently in development. Planned tech stack:
 | **Fuzz Tests** | ✅ Complete | 100% | 6 property-based tests |
 | **Deployment Scripts** | ✅ Complete | 100% | Automated deployment |
 | **Documentation** | ✅ Complete | N/A | Comprehensive docs |
+| **Frontend Setup** | ✅ Complete | N/A | Next.js + TypeScript + Bun |
+| **Web3 Integration** | ✅ Complete | N/A | wagmi + RainbowKit |
+| **UI Foundation** | ✅ Complete | N/A | Shadcn/ui + Tailwind CSS |
+| **Theme System** | ✅ Complete | N/A | Dark/light mode toggle |
 
 ### 🔄 In Progress Components
 
 | Component | Status | Progress | ETA |
 |-----------|---------|----------|-----|
-| **Frontend UI** | 🔄 In Progress | 0% | TBD |
-| **Wallet Integration** | 🔄 Planning | 0% | TBD |
-| **Mobile Responsive** | 🔄 Planning | 0% | TBD |
+| **Faucet Interface** | 🔄 In Progress | 20% | TBD |
+| **Contract Integration** | 🔄 Planning | 0% | TBD |
+| **Transaction Handling** | 🔄 Planning | 0% | TBD |
+| **Error Handling** | 🔄 Planning | 0% | TBD |
 
 ## 🧪 Testing
 
@@ -257,10 +296,10 @@ forge script script/OceanTokenDeployer.s.sol --rpc-url <sepolia_rpc_url> --priva
 forge script script/OceanTokenDeployer.s.sol --rpc-url <mainnet_rpc_url> --private-key <your_private_key> --broadcast --verify
 ```
 
-### Frontend Deployment (Planned)
+### Frontend Deployment
 
-- **Development**: Local development server
-- **Production**: Vercel
+- **Development**: `bun run dev` - Local development server
+- **Production**: Vercel deployment ready
 
 ## 🔒 Security
 
@@ -273,12 +312,13 @@ forge script script/OceanTokenDeployer.s.sol --rpc-url <mainnet_rpc_url> --priva
 - ✅ **Event Logging**: Complete audit trail
 - ✅ **Fuzz Testing**: Edge case validation
 
-### Frontend Security (Planned)
+### Frontend Security
 
-- 🔄 **Wallet Security**: Secure wallet connection patterns
-- 🔄 **Input Sanitization**: XSS and injection prevention
-- 🔄 **HTTPS Only**: Secure communication
-- 🔄 **Environment Variables**: Secure API key management
+- ✅ **Wallet Security**: Secure wallet connection with RainbowKit
+- ✅ **Type Safety**: Full TypeScript implementation
+- ✅ **Environment Variables**: Secure configuration management
+- 🔄 **Input Sanitization**: XSS and injection prevention (planned)
+- 🔄 **HTTPS Only**: Secure communication (planned)
 
 ### Development Guidelines
 
