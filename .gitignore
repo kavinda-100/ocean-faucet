@@ -16,4 +16,6 @@ ocean-faucet-contract/docs/
 .ocean-faucet-contract/.env
 
 # For UI
-.ocean-faucet-contract/ui/
+ocean-faucet-ui/.env
+ocean-faucet-ui/node_modules/
+ocean-faucet-ui/out
