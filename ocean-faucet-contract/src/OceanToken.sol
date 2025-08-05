@@ -62,7 +62,7 @@ contract OceanToken is ERC20, Ownable {
      * @notice Allows users to claim tokens from the faucet.
      * @dev Users can only claim tokens if they haven't claimed in the last hour.
      */
-    function claim_tokens(address _user) public {
+    function claim_tokens(address _user) public validAddress(_user) {
         // check the time since the last claim
         // lastClaimed[_user] = 0 means the user has never claimed before
         if (lastClaimed[_user] != 0 && block.timestamp < lastClaimed[_user] + CLAIM_INTERVAL) {
