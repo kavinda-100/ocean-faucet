@@ -16,6 +16,9 @@ contract OceanTokenTest is Test {
     address public user2 = makeAddr("user2");
     uint256 public USER_INITIAL_BALANCE = 10 ether; // Initial balance for users
 
+    // ---------------------------- Events ----------------------------
+    event TokensClaimed(address indexed user, uint256 amount);
+
     function setUp() public {
         // Deploy the OceanToken contract using the deployer script
         OceanTokenDeployer deployer = new OceanTokenDeployer();
@@ -144,6 +147,37 @@ contract OceanTokenTest is Test {
         // Claim tokens again after the interval
         token.claim_tokens(user1);
         assertEq(token.balanceOf(user1), 2 * token.CLAIM_AMOUNT(), "User1 should have claimed tokens again");
+
+        vm.stopPrank();
+    }
+
+    /**
+     * @notice This test checks if the user cannot claim tokens with an invalid address.
+     * @dev This test checks if the `validAddress` modifier reverts with `OceanToken_InvalidAddress` error.
+     */
+    function test_ClaimTokens_InvalidAddress() public {
+        vm.startPrank(user1);
+
+        // Try to claim tokens with an invalid address (zero address)
+        vm.expectRevert(OceanToken.OceanToken_InvalidAddress.selector);
+        token.claim_tokens(address(0));
+
+        vm.stopPrank();
+    }
+
+    /**
+     * @notice This test checks proper event emission when tokens are claimed.
+     * @dev This test checks if the `TokensClaimed` event is emitted with the correct parameters.
+     */
+    function test_ClaimTokens_EventEmission() public {
+        vm.startPrank(user1);
+
+        // Check if the TokensClaimed event was emitted
+        vm.expectEmit(true, false, false, true);
+        emit TokensClaimed(user1, token.CLAIM_AMOUNT());
+
+        // Claim tokens
+        token.claim_tokens(user1);
 
         vm.stopPrank();
     }
