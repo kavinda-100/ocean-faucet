@@ -2,8 +2,8 @@
 pragma solidity ^0.8.24;
 
 import {Test, console2} from "forge-std/Test.sol";
-import {OceanToken} from "../src/OceanToken.sol";
-import {OceanTokenDeployer} from "../script/OceanTokenDeployer.s.sol";
+import {OceanToken} from "../../src/OceanToken.sol";
+import {OceanTokenDeployer} from "../../script/OceanTokenDeployer.s.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 contract OceanTokenTest is Test {
