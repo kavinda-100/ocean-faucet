@@ -82,4 +82,22 @@ contract OceanToken is ERC20, Ownable {
         // Emit an event for the claim
         emit TokensClaimed(_user, CLAIM_AMOUNT);
     }
+
+    // ---------------------------- View functions (getters) ----------------------------
+
+    /**
+     * @notice Returns the claim amount for the faucet.
+     * @return The amount of tokens that can be claimed.
+     */
+    function getClaimAmount() public pure returns (uint256) {
+        return CLAIM_AMOUNT;
+    }
+
+    /**
+     * @notice Returns the claim interval for the faucet.
+     * @return The time interval between claims in seconds.
+     */
+    function getClaimInterval() public pure returns (uint256) {
+        return CLAIM_INTERVAL;
+    }
 }
