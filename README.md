@@ -19,6 +19,9 @@
     - [🔗 Smart Contract Features](#-smart-contract-features)
     - [🌐 Frontend Features](#-frontend-features)
   - [🎯 Architecture](#-architecture)
+  - [📚 **Detailed Documentation**](#-detailed-documentation)
+    - [🔗 **Smart Contract Backend**](#-smart-contract-backend)
+    - [🌐 **Frontend Application**](#-frontend-application)
   - [🚀 Getting Started](#-getting-started)
     - [📦 Prerequisites](#-prerequisites)
     - [⚙️ Quick Start](#️-quick-start)
@@ -43,6 +46,12 @@
 ## 📖 Overview
 
 **OceanToken Faucet** is a full-stack decentralized application that allows users to easily claim OceanToken (OCT) through a user-friendly web interface. The project consists of a secure Solidity smart contract backend built with Foundry and a modern frontend application.
+
+> 📚 **For detailed documentation, please visit:**
+>
+> 🔗 **[Smart Contract Documentation](./ocean-faucet-contract/README.md)** - Comprehensive contract details, testing, and deployment
+>
+> 🌐 **[Frontend Documentation](./ocean-faucet-ui/README.md)** - Complete UI setup, Web3 integration, and development guide
 
 ### 🎯 What it does
 
@@ -128,6 +137,47 @@ graph TB
     F --> H
     H --> D
 ```
+
+---
+
+## 📚 **Detailed Documentation**
+
+<table>
+<tr>
+<td align="center" width="50%">
+
+### 🔗 **Smart Contract Backend**
+
+[![Contract](https://img.shields.io/badge/📖_Contract_README-blue?style=for-the-badge)](./ocean-faucet-contract/README.md)
+
+**Complete contract documentation including:**
+
+- 📋 Contract specifications and API
+- 🧪 Testing strategies (100% coverage)
+- 🚀 Deployment instructions
+- 🔒 Security implementations
+- 🎯 Fuzz testing details
+
+</td>
+<td align="center" width="50%">
+
+### 🌐 **Frontend Application**
+
+[![Frontend](https://img.shields.io/badge/📖_Frontend_README-green?style=for-the-badge)](./ocean-faucet-ui/README.md)
+
+**Complete frontend documentation including:**
+
+- ⚙️ Setup and installation guide
+- 🛠️ Development environment
+- 🔗 Web3 integration details
+- 🎨 UI components and theming
+- 🚀 Deployment strategies
+
+</td>
+</tr>
+</table>
+
+---
 
 ## 🚀 Getting Started
 
