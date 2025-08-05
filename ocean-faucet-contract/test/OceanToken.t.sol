@@ -188,7 +188,7 @@ contract OceanTokenTest is Test {
      * @dev This test checks if the claim amount is returned correctly.
      */
     function test_GetClaimAmount() public view {
-        uint256 claimAmount = token.CLAIM_AMOUNT();
+        uint256 claimAmount = token.getClaimAmount();
         console2.log("Claim Amount:", claimAmount);
         assertEq(claimAmount, 10 * 10 ** 18, "Claim amount should be 10 OCT");
     }
@@ -198,7 +198,7 @@ contract OceanTokenTest is Test {
      * @dev This test checks if the claim interval is returned correctly.
      */
     function test_GetClaimInterval() public view {
-        uint256 claimInterval = token.CLAIM_INTERVAL();
+        uint256 claimInterval = token.getClaimInterval();
         console2.log("Claim Interval:", claimInterval);
         assertEq(claimInterval, 1 hours, "Claim interval should be 1 hour");
     }
