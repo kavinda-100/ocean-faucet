@@ -127,4 +127,24 @@ contract OceanTokenTest is Test {
 
         vm.stopPrank();
     }
+
+    /**
+     * @notice This test checks if the user can claim tokens after the claim interval has elapsed.
+     */
+    function test_ClaimTokens_AfterInterval() public {
+        vm.startPrank(user1);
+
+        // Claim tokens for the first time
+        token.claim_tokens(user1);
+        assertEq(token.balanceOf(user1), token.CLAIM_AMOUNT(), "User1 should have claimed tokens");
+
+        // Fast forward time to ensure the claim interval has elapsed
+        vm.warp(block.timestamp + token.CLAIM_INTERVAL() + 1);
+
+        // Claim tokens again after the interval
+        token.claim_tokens(user1);
+        assertEq(token.balanceOf(user1), 2 * token.CLAIM_AMOUNT(), "User1 should have claimed tokens again");
+
+        vm.stopPrank();
+    }
 }
