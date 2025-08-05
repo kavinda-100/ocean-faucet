@@ -1,4 +1,7 @@
+"use client";
+
 import React from "react";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { ModeToggle } from "./ModeToggle";
 
 const Header = () => {
@@ -9,8 +12,8 @@ const Header = () => {
       </h1>
 
       <div className="flex items-center space-x-4">
+        <ConnectButton />
         <ModeToggle />
-        {/* connect button */}
       </div>
     </header>
   );

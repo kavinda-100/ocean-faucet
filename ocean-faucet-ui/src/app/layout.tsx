@@ -1,10 +1,12 @@
 import "@/styles/globals.css";
+import "@rainbow-me/rainbowkit/styles.css";
 
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
 
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import Header from "@/components/Header";
+import WebThreeProvider from "@/providers/WebThreeProvider";
 
 export const metadata: Metadata = {
   title: "Ocean Faucet",
@@ -33,10 +35,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main className="container mx-auto flex min-h-screen flex-col px-4">
-            <Header />
-            {children}
-          </main>
+          <WebThreeProvider>
+            <main className="container mx-auto flex min-h-screen flex-col px-4">
+              <Header />
+              {children}
+            </main>
+          </WebThreeProvider>
         </ThemeProvider>
       </body>
     </html>
