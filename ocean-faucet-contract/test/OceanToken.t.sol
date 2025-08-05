@@ -4,6 +4,7 @@ pragma solidity ^0.8.24;
 import {Test, console2} from "forge-std/Test.sol";
 import {OceanToken} from "../src/OceanToken.sol";
 import {OceanTokenDeployer} from "../script/OceanTokenDeployer.s.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 contract OceanTokenTest is Test {
     OceanToken token;
@@ -63,6 +64,22 @@ contract OceanTokenTest is Test {
             INITIAL_SUPPLY + mintAmount,
             "Total supply should be initial supply plus minted amount"
         );
+
+        vm.stopPrank();
+    }
+
+    /**
+     * @notice This test check only the owner can mint new tokens.
+     * @dev This test checks if a non-owner cannot mint new tokens.
+     */
+    function test_NonOwnerMint() public {
+        vm.startPrank(user1);
+
+        uint256 mintAmount = 100 * 10 ** 18; // 100 OCT
+
+        // Try to mint tokens as a non-owner
+        vm.expectRevert(abi.encodeWithSelector(Ownable.OwnableUnauthorizedAccount.selector, user1));
+        token.mint(user1, mintAmount);
 
         vm.stopPrank();
     }
