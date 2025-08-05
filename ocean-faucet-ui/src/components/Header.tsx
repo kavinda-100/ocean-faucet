@@ -12,7 +12,13 @@ const Header = () => {
       </h1>
 
       <div className="flex items-center space-x-4">
-        <ConnectButton />
+        <ConnectButton
+          showBalance={false}
+          accountStatus={{
+            smallScreen: "avatar",
+            largeScreen: "full",
+          }}
+        />
         <ModeToggle />
       </div>
     </header>
