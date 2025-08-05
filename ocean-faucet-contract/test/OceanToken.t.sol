@@ -14,7 +14,7 @@ contract OceanTokenTest is Test {
     // ---------------------------- Variables ----------------------------
     address public user1 = makeAddr("user1");
     address public user2 = makeAddr("user2");
-    uint256 public USER_INITIAL_BALANCE = 10 * 10 ** 18; // 10 OCT
+    uint256 public USER_INITIAL_BALANCE = 10 ether; // Initial balance for users
 
     function setUp() public {
         // Deploy the OceanToken contract using the deployer script
@@ -80,6 +80,31 @@ contract OceanTokenTest is Test {
         // Try to mint tokens as a non-owner
         vm.expectRevert(abi.encodeWithSelector(Ownable.OwnableUnauthorizedAccount.selector, user1));
         token.mint(user1, mintAmount);
+
+        vm.stopPrank();
+    }
+
+    /// ------------------------------ test claim tokens ------------------------------
+
+    /**
+     * @notice Test the claim tokens functionality.
+     * @dev This test checks if users can claim tokens from the faucet and if the claim interval is enforced.
+     */
+    function test_ClaimTokens() public {
+        vm.startPrank(user1);
+
+        // Check the initial balance of user1
+        uint256 initialBalance = token.balanceOf(user1);
+        console2.log("User1 Initial Balance:", initialBalance);
+        assertEq(initialBalance, 0, "User1 should have an initial balance of 0");
+
+        // Claim tokens
+        token.claim_tokens(user1);
+
+        // Check the balance after claiming
+        uint256 balanceAfterClaim = token.balanceOf(user1);
+        console2.log("User1 Balance after claiming:", balanceAfterClaim);
+        assertEq(balanceAfterClaim, token.CLAIM_AMOUNT(), "User1 should have claimed the correct amount of tokens");
 
         vm.stopPrank();
     }

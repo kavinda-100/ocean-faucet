@@ -14,7 +14,6 @@ contract OceanToken is ERC20, Ownable {
     // ---------------------------- Errors ----------------------------
     error OceanToken_InvalidAddress();
     error OceanToken_ClaimIntervalNotElapsed();
-    error OceanToken_TransferFailed();
 
     // ---------------------------- State Variables ----------------------------
     uint256 public constant CLAIM_AMOUNT = 10 * 10 ** 18; // Amount of tokens to claim per request (10 OCT)
@@ -72,12 +71,8 @@ contract OceanToken is ERC20, Ownable {
         // Update the last claimed time
         lastClaimed[_user] = block.timestamp;
 
-        // Send the tokens to the user
-        (bool success,) = payable(_user).call{value: CLAIM_AMOUNT}("");
-        // Check if the transfer was successful
-        if (!success) {
-            revert OceanToken_TransferFailed();
-        }
+        // Mint tokens directly to the user
+        _mint(_user, CLAIM_AMOUNT);
 
         // Emit an event for the claim
         emit TokensClaimed(_user, CLAIM_AMOUNT);
