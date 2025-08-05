@@ -181,4 +181,25 @@ contract OceanTokenTest is Test {
 
         vm.stopPrank();
     }
+
+    /// ------------------------------ test view functions ------------------------------
+    /**
+     * @notice Test the claim amount getter function.
+     * @dev This test checks if the claim amount is returned correctly.
+     */
+    function test_GetClaimAmount() public view {
+        uint256 claimAmount = token.CLAIM_AMOUNT();
+        console2.log("Claim Amount:", claimAmount);
+        assertEq(claimAmount, 10 * 10 ** 18, "Claim amount should be 10 OCT");
+    }
+
+    /**
+     * @notice Test the claim interval getter function.
+     * @dev This test checks if the claim interval is returned correctly.
+     */
+    function test_GetClaimInterval() public view {
+        uint256 claimInterval = token.CLAIM_INTERVAL();
+        console2.log("Claim Interval:", claimInterval);
+        assertEq(claimInterval, 1 hours, "Claim interval should be 1 hour");
+    }
 }
