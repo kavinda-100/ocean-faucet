@@ -11,7 +11,7 @@ const Header = () => {
         🌊 <span className="hidden md:inline">Ocean Faucet</span>
       </h1>
 
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center justify-center gap-3">
         <ConnectButton
           showBalance={false}
           accountStatus={{
