@@ -19,3 +19,4 @@ ocean-faucet-contract/docs/
 ocean-faucet-ui/.env
 ocean-faucet-ui/node_modules/
 ocean-faucet-ui/out
+ocean-faucet-ui/.next
