@@ -1,0 +1,19 @@
+#  For Foundry
+
+# Compiler files
+ocean-faucet-contract/cache/
+ocean-faucet-contract/out/
+
+# Ignores development broadcast logs
+ocean-faucet-contract/!/broadcast
+ocean-faucet-contract/broadcast/*/31337/
+ocean-faucet-contract/broadcast/**/dry-run/
+
+# Docs
+ocean-faucet-contract/docs/
+
+# Dotenv file
+.ocean-faucet-contract/.env
+
+# For UI
+.ocean-faucet-contract/ui/
