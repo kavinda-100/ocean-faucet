@@ -108,4 +108,23 @@ contract OceanTokenTest is Test {
 
         vm.stopPrank();
     }
+
+    /**
+     * @notice This test checks if the claim interval is passed before claiming again.
+     * @dev This test checks if users cannot claim tokens again before the claim interval has elapsed.
+     * if not, it reverts with the `OceanToken_ClaimIntervalNotElapsed` error.
+     */
+    function test_ClaimTokens_IntervalNotElapsed() public {
+        vm.startPrank(user1);
+
+        // Claim tokens for the first time
+        token.claim_tokens(user1);
+        assertEq(token.balanceOf(user1), token.CLAIM_AMOUNT(), "User1 should have claimed tokens");
+
+        // Try to claim tokens again before the claim interval has elapsed
+        vm.expectRevert(OceanToken.OceanToken_ClaimIntervalNotElapsed.selector);
+        token.claim_tokens(user1);
+
+        vm.stopPrank();
+    }
 }
