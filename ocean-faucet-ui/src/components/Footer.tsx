@@ -3,7 +3,7 @@ import { Github, Twitter, Globe, Heart, Shield, Zap } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="relative mt-20 w-full border-t border-blue-200/20 bg-gradient-to-br from-blue-50/50 via-white/90 to-cyan-50/50 dark:border-slate-700/20 dark:from-slate-900/50 dark:via-slate-800/90 dark:to-slate-900/50">
+    <footer className="relative w-full border-t border-blue-200/20 bg-gradient-to-br from-blue-50/50 via-white/90 to-cyan-50/50 dark:border-slate-700/20 dark:from-slate-900/50 dark:via-slate-800/90 dark:to-slate-900/50">
       {/* Decorative ocean waves */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-10 left-1/4 h-32 w-32 animate-pulse rounded-full bg-blue-400/5 blur-2xl" />
