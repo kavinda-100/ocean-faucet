@@ -4,7 +4,7 @@ import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useAccount, useWriteContract } from "wagmi";
+import { useAccount, useWriteContract, type BaseError } from "wagmi";
 
 import OceanTokenAbi from "@/abi/OceanToken.json";
 
@@ -27,7 +27,14 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { Loader2Icon, CheckCircle, Copy, ExternalLink } from "lucide-react";
+import {
+  Loader2Icon,
+  CheckCircle,
+  Copy,
+  ExternalLink,
+  AlertCircle,
+  X,
+} from "lucide-react";
 
 const formSchema = z.object({
   wallet_address: z
@@ -42,12 +49,20 @@ function InputSection() {
   const [txHash, setTxHash] = React.useState<string | null>(null);
   const [copiedTx, setCopiedTx] = React.useState(false);
   const [copiedAddress, setCopiedAddress] = React.useState(false);
+  const [dismissedError, setDismissedError] = React.useState(false);
 
   // Contract/Ocean Token Address
   const CONTRACT_ADDRESS = process.env
     .NEXT_PUBLIC_BANK_CONTRACT_ADDRESS as `0x${string}`;
 
-  const { data: hash, isPending, writeContract } = useWriteContract();
+  const {
+    data: hash,
+    isPending,
+    error,
+    isSuccess,
+    isError,
+    writeContract,
+  } = useWriteContract();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -64,12 +79,47 @@ function InputSection() {
     }
   }, [address, form]);
 
-  // after the transaction is sent, update the txHash state
+  // after the transaction is successful, update the txHash state
   React.useEffect(() => {
-    if (hash) {
+    if (isSuccess && hash) {
       setTxHash(hash);
     }
-  }, [hash]);
+  }, [isSuccess, hash]);
+
+  // Reset states when a new transaction starts
+  React.useEffect(() => {
+    if (isPending) {
+      setTxHash(null);
+      setDismissedError(false);
+    }
+  }, [isPending]);
+
+  // Clear txHash if there's an error
+  React.useEffect(() => {
+    if (isError) {
+      setTxHash(null);
+    }
+  }, [isError]);
+
+  // if there is an error, console log it
+  React.useEffect(() => {
+    if (error && isError) {
+      console.error("Transaction error:", error);
+    }
+  }, [error, isError]);
+
+  // Debug states (remove in production)
+  React.useEffect(() => {
+    console.log("State debug:", {
+      isPending,
+      isSuccess,
+      isError,
+      hasHash: !!hash,
+      hasTxHash: !!txHash,
+      hasError: !!error,
+      dismissedError,
+    });
+  }, [isPending, isSuccess, isError, hash, txHash, error, dismissedError]);
 
   // Copy functions
   const copyToClipboard = async (text: string, type: "tx" | "address") => {
@@ -90,8 +140,6 @@ function InputSection() {
   // submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
-    // Reset previous transaction hash
-    setTxHash(null);
     // send the transaction to the smart contract
     writeContract({
       address: CONTRACT_ADDRESS,
@@ -162,8 +210,62 @@ function InputSection() {
           </Form>
         </CardContent>
         <CardFooter className="flex flex-col space-y-4 pb-8">
+          {/* Error Message */}
+          {isError && error && !dismissedError && (
+            <div className="w-full space-y-3 rounded-xl border border-red-200/50 bg-gradient-to-r from-red-50/80 to-rose-50/80 p-4 dark:border-red-800/30 dark:from-red-950/30 dark:to-rose-950/30">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-red-700 dark:text-red-400">
+                  <AlertCircle className="h-5 w-5" />
+                  <span className="font-semibold">❌ Transaction Failed</span>
+                </div>
+                <button
+                  onClick={() => setDismissedError(true)}
+                  className="rounded p-1 text-red-600 transition-colors hover:bg-red-100 dark:text-red-400 dark:hover:bg-red-900/30"
+                  title="Dismiss error"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+
+              <div className="space-y-2">
+                <p className="text-sm font-medium text-red-600/80 dark:text-red-300/80">
+                  Error Details:
+                </p>
+                <div className="rounded-lg bg-white/70 p-3 dark:bg-slate-800/70">
+                  <p className="text-sm text-red-700 dark:text-red-300">
+                    {(error as BaseError)?.shortMessage ||
+                      error?.message ||
+                      "Unknown error occurred"}
+                  </p>
+                  {(error as BaseError)?.details && (
+                    <details className="mt-2">
+                      <summary className="cursor-pointer text-xs font-medium text-red-600/80 dark:text-red-400/80">
+                        View technical details
+                      </summary>
+                      <pre className="mt-1 text-xs break-words whitespace-pre-wrap text-red-600/70 dark:text-red-400/70">
+                        {(error as BaseError).details}
+                      </pre>
+                    </details>
+                  )}
+                </div>
+
+                {/* Common error suggestions */}
+                <div className="flex items-start gap-2 text-xs text-red-600/70 dark:text-red-400/70">
+                  <span>💡</span>
+                  <div>
+                    <p className="font-medium">Common solutions:</p>
+                    <p>• Check if you have enough ETH for gas fees</p>
+                    <p>• Ensure you&apos;re connected to the correct network</p>
+                    <p>• Wait 1 hour between claims (cooldown period)</p>
+                    <p>• Try refreshing the page and reconnecting wallet</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Success Message with Transaction Hash */}
-          {txHash && (
+          {isSuccess && txHash && !isError && (
             <div className="w-full space-y-3 rounded-xl border border-green-200/50 bg-gradient-to-r from-green-50/80 to-emerald-50/80 p-4 dark:border-green-800/30 dark:from-green-950/30 dark:to-emerald-950/30">
               <div className="flex items-center gap-2 text-green-700 dark:text-green-400">
                 <CheckCircle className="h-5 w-5" />
