@@ -7,6 +7,7 @@ import { Geist } from "next/font/google";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import Header from "@/components/Header";
 import WebThreeProvider from "@/providers/WebThreeProvider";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Ocean Faucet",
@@ -36,9 +37,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <WebThreeProvider>
-            <main className="container mx-auto flex min-h-screen flex-col px-4">
+            <main className="mx-auto flex min-h-screen max-w-[2000px] flex-col px-4">
               <Header />
               {children}
+              <Footer />
             </main>
           </WebThreeProvider>
         </ThemeProvider>
