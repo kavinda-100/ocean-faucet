@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Mail } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { Badge } from '@/components/ui/badge';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown, Mail } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 
 interface FAQItemProps {
   question: string;
@@ -22,12 +22,14 @@ function FAQItem({ question, answer, index }: FAQItemProps) {
       transition={{
         duration: 0.3,
         delay: index * 0.15,
-        ease: 'easeOut',
+        ease: "easeOut",
       }}
       className={cn(
-        'group border-border/60 rounded-lg border',
-        'transition-all duration-200 ease-in-out',
-        isOpen ? 'bg-card/30 shadow-sm' : 'hover:bg-card/50',
+        "group rounded-xl border border-blue-200/60 bg-white/70 backdrop-blur-sm dark:border-blue-700/60 dark:bg-slate-800/70",
+        "shadow-sm transition-all duration-200 ease-in-out",
+        isOpen
+          ? "border-blue-300/60 bg-blue-50/80 shadow-md shadow-blue-500/10 dark:border-blue-600/60 dark:bg-blue-950/50"
+          : "hover:bg-blue-50/50 hover:shadow-md hover:shadow-blue-500/5 dark:hover:bg-blue-950/30",
       )}
     >
       <button
@@ -37,9 +39,9 @@ function FAQItem({ question, answer, index }: FAQItemProps) {
       >
         <h3
           className={cn(
-            'text-left text-base font-medium transition-colors duration-200',
-            'text-foreground/80',
-            isOpen && 'text-foreground',
+            "text-left text-base font-semibold transition-colors duration-200",
+            "text-blue-800/90 dark:text-blue-200/90",
+            isOpen && "text-blue-900 dark:text-blue-100",
           )}
         >
           {question}
@@ -51,12 +53,14 @@ function FAQItem({ question, answer, index }: FAQItemProps) {
           }}
           transition={{
             duration: 0.3,
-            ease: 'easeInOut',
+            ease: "easeInOut",
           }}
           className={cn(
-            'shrink-0 rounded-full p-0.5',
-            'transition-colors duration-200',
-            isOpen ? 'text-primary' : 'text-muted-foreground',
+            "shrink-0 rounded-full p-1",
+            "transition-colors duration-200",
+            isOpen
+              ? "bg-blue-100/80 text-blue-600 dark:bg-blue-900/80 dark:text-blue-400"
+              : "text-blue-500/70 dark:text-blue-400/70",
           )}
         >
           <ChevronDown className="h-4 w-4" />
@@ -67,7 +71,7 @@ function FAQItem({ question, answer, index }: FAQItemProps) {
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{
-              height: 'auto',
+              height: "auto",
               opacity: 1,
               transition: {
                 height: {
@@ -86,7 +90,7 @@ function FAQItem({ question, answer, index }: FAQItemProps) {
               transition: {
                 height: {
                   duration: 0.3,
-                  ease: 'easeInOut',
+                  ease: "easeInOut",
                 },
                 opacity: {
                   duration: 0.25,
@@ -94,16 +98,16 @@ function FAQItem({ question, answer, index }: FAQItemProps) {
               },
             }}
           >
-            <div className="border-border/40 border-t px-6 pt-2 pb-4">
+            <div className="border-t border-blue-200/40 px-6 pt-3 pb-5 dark:border-blue-700/40">
               <motion.p
                 initial={{ y: -8, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -8, opacity: 0 }}
                 transition={{
                   duration: 0.3,
-                  ease: 'easeOut',
+                  ease: "easeOut",
                 }}
-                className="text-muted-foreground text-sm leading-relaxed"
+                className="text-sm leading-relaxed font-medium text-blue-700/80 dark:text-blue-300/80"
               >
                 {answer}
               </motion.p>
@@ -116,63 +120,64 @@ function FAQItem({ question, answer, index }: FAQItemProps) {
 }
 
 export default function Faq3() {
-  const faqs: Omit<FAQItemProps, 'index'>[] = [
+  const faqs: Omit<FAQItemProps, "index">[] = [
     {
-      question: 'What makes MVPBlocks unique?',
+      question: "What is OceanToken Faucet?",
       answer:
-        "MVPBlocks stands out through its intuitive design, powerful component library, and seamless integration options. We've focused on creating a user experience that combines simplicity with advanced features, all while maintaining excellent performance and accessibility.",
+        "OceanToken Faucet is a free token distribution service that allows users to claim OceanToken (OCT) for testing and development purposes. Simply connect your wallet and claim 10 OCT tokens every hour at no cost.",
     },
     {
-      question: 'How can I customize the components?',
+      question: "How often can I claim tokens?",
       answer:
-        'All components are built with Tailwind CSS, making them highly customizable. You can modify colors, spacing, typography, and more by simply adjusting the class names or using our theme variables to match your brand identity.',
+        "You can claim 10 OceanToken (OCT) every hour. The smart contract enforces a 1-hour cooldown period between claims to ensure fair distribution and prevent abuse.",
     },
     {
-      question: 'Do the components work with dark mode?',
+      question: "Is it safe to use my wallet address?",
       answer:
-        "Yes, all MVPBlocks components are designed to work seamlessly with both light and dark modes. They automatically adapt to your site's theme settings, providing a consistent user experience regardless of the user's preference.",
+        "Yes, it's completely safe! We only use your public wallet address to send tokens. We never ask for your private keys or seed phrases. Our smart contract is fully audited and tested with 100% coverage.",
     },
     {
-      question: 'How can I get started with MVPBlocks?',
+      question: "Which networks are supported?",
       answer:
-        'You can get started by browsing our component library and copying the code for the components you need. Our documentation provides clear instructions for installation and usage, and you can always reach out to our support team if you need assistance.',
+        "OceanToken Faucet supports Ethereum mainnet, Sepolia testnet, and local development networks. You can easily switch between networks using your connected wallet.",
     },
     {
-      question: 'Can I use MVPBlocks for commercial projects?',
+      question: "Do I need to pay gas fees?",
       answer:
-        'Absolutely! MVPBlocks is free to use for both personal and commercial projects. There are no licensing fees or attribution requirements—just build and launch your MVP faster than ever before.',
+        "The token claiming process is completely free - you only need to pay the standard Ethereum network gas fees for the transaction. The OceanTokens themselves are distributed at no cost.",
     },
   ];
 
   return (
-    <section className="bg-background relative w-full overflow-hidden py-16">
-      {/* Decorative elements */}
-      <div className="bg-primary/5 absolute top-20 -left-20 h-64 w-64 rounded-full blur-3xl" />
-      <div className="bg-primary/5 absolute -right-20 bottom-20 h-64 w-64 rounded-full blur-3xl" />
+    <section className="relative w-full overflow-hidden bg-gradient-to-br from-blue-50/80 via-white to-cyan-50/80 py-20 dark:from-blue-950/30 dark:via-slate-900 dark:to-cyan-950/30">
+      {/* Ocean-themed decorative elements */}
+      <div className="absolute top-20 -left-20 h-64 w-64 animate-pulse rounded-full bg-blue-500/10 blur-3xl" />
+      <div className="absolute -right-20 bottom-20 h-64 w-64 animate-pulse rounded-full bg-cyan-500/10 blur-3xl delay-1000" />
+      <div className="absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-blue-400/5 blur-3xl" />
 
       <div className="relative container mx-auto max-w-6xl px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mx-auto mb-12 max-w-2xl text-center"
+          className="mx-auto mb-16 max-w-3xl text-center"
         >
           <Badge
             variant="outline"
-            className="border-primary mb-4 px-3 py-1 text-xs font-medium tracking-wider uppercase"
+            className="mb-6 rounded-full border-blue-500 bg-blue-50/80 px-4 py-2 text-sm font-semibold tracking-wider text-blue-700 uppercase dark:border-blue-400 dark:bg-blue-950/80 dark:text-blue-300"
           >
-            FAQs
+            🌊 Ocean Faucet FAQs
           </Badge>
 
-          <h2 className="from-primary mb-3 bg-gradient-to-r to-rose-400 bg-clip-text text-3xl font-bold text-transparent">
+          <h2 className="mb-4 bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-800 bg-clip-text text-4xl font-bold text-transparent">
             Frequently Asked Questions
           </h2>
-          <p className="text-muted-foreground text-sm">
-            Everything you need to know about MVPBlocks
+          <p className="text-lg font-medium text-blue-700/80 dark:text-blue-300/80">
+            Everything you need to know about claiming OceanTokens
           </p>
         </motion.div>
 
-        <div className="mx-auto max-w-2xl space-y-2">
+        <div className="mx-auto max-w-3xl space-y-3">
           {faqs.map((faq, index) => (
             <FAQItem key={index} {...faq} index={index} />
           ))}
@@ -182,28 +187,30 @@ export default function Faq3() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className={cn('mx-auto mt-12 max-w-md rounded-lg p-6 text-center')}
+          className={cn(
+            "mx-auto mt-16 max-w-md rounded-2xl border border-blue-200/50 bg-gradient-to-br from-blue-100/80 via-white/90 to-cyan-100/80 p-8 text-center shadow-xl shadow-blue-500/10 dark:border-blue-700/50 dark:from-blue-900/30 dark:via-slate-800/90 dark:to-cyan-900/30",
+          )}
         >
-          <div className="bg-primary/10 text-primary mb-4 inline-flex items-center justify-center rounded-full p-2">
-            <Mail className="h-4 w-4" />
+          <div className="mb-6 inline-flex items-center justify-center rounded-full bg-blue-500/20 p-4 text-blue-600 shadow-lg dark:text-blue-400">
+            <Mail className="h-6 w-6" />
           </div>
-          <p className="text-foreground mb-1 text-sm font-medium">
-            Still have questions?
-          </p>
-          <p className="text-muted-foreground mb-4 text-xs">
-            We&apos;re here to help you
+          <h3 className="mb-2 text-lg font-bold text-blue-800 dark:text-blue-200">
+            🤝 Still have questions?
+          </h3>
+          <p className="mb-6 text-sm font-medium text-blue-600/80 dark:text-blue-400/80">
+            We&apos;re here to help you with your OceanToken journey
           </p>
           <button
             type="button"
             className={cn(
-              'rounded-md px-4 py-2 text-sm',
-              'bg-primary text-primary-foreground',
-              'hover:bg-primary/90',
-              'transition-colors duration-200',
-              'font-medium',
+              "rounded-xl px-6 py-3 text-sm font-semibold",
+              "bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 text-white",
+              "hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800",
+              "shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30",
+              "transform transition-all duration-300 hover:scale-105 active:scale-95",
             )}
           >
-            Contact Support
+            💬 Contact Support
           </button>
         </motion.div>
       </div>
