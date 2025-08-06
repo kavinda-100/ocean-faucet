@@ -17,7 +17,7 @@ const config = getDefaultConfig({
   chains: [mainnet, zksync, polygon, optimism, arbitrum, base, sepolia, anvil],
   ssr: true, // If your dApp uses server side rendering (SSR)
   // transports: {
-  //   [anvil.id]: http("http://localhost:8545"),
+  //   [anvil.id]: http("http://localhost:8545/rpc"),
   // },
 });
 
