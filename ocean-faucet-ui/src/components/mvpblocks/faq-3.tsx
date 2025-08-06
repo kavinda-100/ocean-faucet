@@ -25,11 +25,11 @@ function FAQItem({ question, answer, index }: FAQItemProps) {
         ease: "easeOut",
       }}
       className={cn(
-        "group rounded-xl border border-blue-200/60 bg-white/70 backdrop-blur-sm dark:border-blue-700/60 dark:bg-slate-800/70",
+        "group rounded-xl border border-blue-200/60 bg-white/70 backdrop-blur-sm dark:border-slate-600/60 dark:bg-slate-800/70",
         "shadow-sm transition-all duration-200 ease-in-out",
         isOpen
-          ? "border-blue-300/60 bg-blue-50/80 shadow-md shadow-blue-500/10 dark:border-blue-600/60 dark:bg-blue-950/50"
-          : "hover:bg-blue-50/50 hover:shadow-md hover:shadow-blue-500/5 dark:hover:bg-blue-950/30",
+          ? "border-blue-300/60 bg-blue-50/80 shadow-md shadow-blue-500/10 dark:border-slate-500/60 dark:bg-slate-700/80 dark:shadow-slate-900/20"
+          : "hover:bg-blue-50/50 hover:shadow-md hover:shadow-blue-500/5 dark:hover:bg-slate-700/50",
       )}
     >
       <button
@@ -59,8 +59,8 @@ function FAQItem({ question, answer, index }: FAQItemProps) {
             "shrink-0 rounded-full p-1",
             "transition-colors duration-200",
             isOpen
-              ? "bg-blue-100/80 text-blue-600 dark:bg-blue-900/80 dark:text-blue-400"
-              : "text-blue-500/70 dark:text-blue-400/70",
+              ? "bg-blue-100/80 text-blue-600 dark:bg-slate-700/80 dark:text-slate-300"
+              : "text-blue-500/70 dark:text-slate-400/70",
           )}
         >
           <ChevronDown className="h-4 w-4" />
@@ -98,7 +98,7 @@ function FAQItem({ question, answer, index }: FAQItemProps) {
               },
             }}
           >
-            <div className="border-t border-blue-200/40 px-6 pt-3 pb-5 dark:border-blue-700/40">
+            <div className="border-t border-blue-200/40 px-6 pt-3 pb-5 dark:border-slate-600/40">
               <motion.p
                 initial={{ y: -8, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -107,7 +107,7 @@ function FAQItem({ question, answer, index }: FAQItemProps) {
                   duration: 0.3,
                   ease: "easeOut",
                 }}
-                className="text-sm leading-relaxed font-medium text-blue-700/80 dark:text-blue-300/80"
+                className="text-sm leading-relaxed font-medium text-blue-700/80 dark:text-slate-300"
               >
                 {answer}
               </motion.p>
@@ -149,11 +149,11 @@ export default function Faq3() {
   ];
 
   return (
-    <section className="relative w-full overflow-hidden bg-gradient-to-br from-blue-50/80 via-white to-cyan-50/80 py-20 dark:from-blue-950/30 dark:via-slate-900 dark:to-cyan-950/30">
+    <section className="relative w-full overflow-hidden bg-gradient-to-br from-blue-50/80 via-white to-cyan-50/80 py-20 dark:from-slate-900/80 dark:via-slate-800 dark:to-slate-900/80">
       {/* Ocean-themed decorative elements */}
-      <div className="absolute top-20 -left-20 h-64 w-64 animate-pulse rounded-full bg-blue-500/10 blur-3xl" />
-      <div className="absolute -right-20 bottom-20 h-64 w-64 animate-pulse rounded-full bg-cyan-500/10 blur-3xl delay-1000" />
-      <div className="absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-blue-400/5 blur-3xl" />
+      <div className="absolute top-20 -left-20 h-64 w-64 animate-pulse rounded-full bg-blue-500/10 blur-3xl dark:bg-slate-700/20" />
+      <div className="absolute -right-20 bottom-20 h-64 w-64 animate-pulse rounded-full bg-cyan-500/10 blur-3xl delay-1000 dark:bg-slate-600/20" />
+      <div className="absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-blue-400/5 blur-3xl dark:bg-slate-700/10" />
 
       <div className="relative container mx-auto max-w-6xl px-4">
         <motion.div
@@ -164,15 +164,15 @@ export default function Faq3() {
         >
           <Badge
             variant="outline"
-            className="mb-6 rounded-full border-blue-500 bg-blue-50/80 px-4 py-2 text-sm font-semibold tracking-wider text-blue-700 uppercase dark:border-blue-400 dark:bg-blue-950/80 dark:text-blue-300"
+            className="mb-6 rounded-full border-blue-500 bg-blue-50/80 px-4 py-2 text-sm font-semibold tracking-wider text-blue-700 uppercase dark:border-slate-500 dark:bg-slate-800/80 dark:text-slate-300"
           >
             🌊 Ocean Faucet FAQs
           </Badge>
 
-          <h2 className="mb-4 bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-800 bg-clip-text text-4xl font-bold text-transparent">
+          <h2 className="mb-4 bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-800 bg-clip-text text-4xl font-bold text-transparent dark:from-blue-400 dark:via-cyan-400 dark:to-blue-600">
             Frequently Asked Questions
           </h2>
-          <p className="text-lg font-medium text-blue-700/80 dark:text-blue-300/80">
+          <p className="text-lg font-medium text-blue-700/80 dark:text-slate-300">
             Everything you need to know about claiming OceanTokens
           </p>
         </motion.div>
@@ -188,16 +188,16 @@ export default function Faq3() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
           className={cn(
-            "mx-auto mt-16 max-w-md rounded-2xl border border-blue-200/50 bg-gradient-to-br from-blue-100/80 via-white/90 to-cyan-100/80 p-8 text-center shadow-xl shadow-blue-500/10 dark:border-blue-700/50 dark:from-blue-900/30 dark:via-slate-800/90 dark:to-cyan-900/30",
+            "mx-auto mt-16 max-w-md rounded-2xl border border-blue-200/50 bg-gradient-to-br from-blue-100/80 via-white/90 to-cyan-100/80 p-8 text-center shadow-xl shadow-blue-500/10 dark:border-slate-600/50 dark:from-slate-800/80 dark:via-slate-800/90 dark:to-slate-700/80 dark:shadow-slate-900/20",
           )}
         >
-          <div className="mb-6 inline-flex items-center justify-center rounded-full bg-blue-500/20 p-4 text-blue-600 shadow-lg dark:text-blue-400">
+          <div className="mb-6 inline-flex items-center justify-center rounded-full bg-blue-500/20 p-4 text-blue-600 shadow-lg dark:bg-slate-700/50 dark:text-slate-300">
             <Mail className="h-6 w-6" />
           </div>
-          <h3 className="mb-2 text-lg font-bold text-blue-800 dark:text-blue-200">
+          <h3 className="mb-2 text-lg font-bold text-blue-800 dark:text-slate-200">
             🤝 Still have questions?
           </h3>
-          <p className="mb-6 text-sm font-medium text-blue-600/80 dark:text-blue-400/80">
+          <p className="mb-6 text-sm font-medium text-blue-600/80 dark:text-slate-400">
             We&apos;re here to help you with your OceanToken journey
           </p>
           <button

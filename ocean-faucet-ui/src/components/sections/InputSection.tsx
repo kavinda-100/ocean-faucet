@@ -58,12 +58,13 @@ function InputSection() {
         <div className="absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-blue-400/5 blur-3xl" />
       </div>
 
-      <Card className="relative mx-auto flex w-full max-w-2xl flex-col rounded-2xl border border-blue-200/20 bg-gradient-to-br from-blue-50/50 via-white/80 to-cyan-50/50 shadow-2xl shadow-blue-500/10 backdrop-blur-sm dark:border-blue-800/20 dark:from-blue-950/20 dark:via-slate-900/80 dark:to-cyan-950/20">
+      <Card className="relative mx-auto flex w-full max-w-2xl flex-col rounded-2xl border border-blue-200/20 bg-gradient-to-br from-blue-50/50 via-white/80 to-cyan-50/50 shadow-2xl shadow-blue-500/10 backdrop-blur-sm dark:border-slate-700/20 dark:from-slate-800/50 dark:via-slate-800/80 dark:to-slate-900/50 dark:shadow-slate-900/20">
+        .
         <CardHeader className="pb-4 text-center">
-          <CardTitle className="mb-2 bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-800 bg-clip-text text-3xl font-bold text-transparent">
+          <CardTitle className="mb-2 bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-800 bg-clip-text text-3xl font-bold text-transparent dark:from-blue-400 dark:via-cyan-400 dark:to-blue-600">
             🌊 Claim Ocean Tokens
           </CardTitle>
-          <CardDescription className="text-base font-medium text-blue-700/80 dark:text-blue-300/80">
+          <CardDescription className="text-base font-medium text-blue-700/80 dark:text-slate-300">
             Enter your wallet address to receive 10 free OceanToken (OCT)
           </CardDescription>
         </CardHeader>
@@ -75,17 +76,17 @@ function InputSection() {
                 name="wallet_address"
                 render={({ field }) => (
                   <FormItem className="space-y-3">
-                    <FormLabel className="flex items-center gap-2 text-lg font-semibold text-blue-800 dark:text-blue-200">
+                    <FormLabel className="flex items-center gap-2 text-lg font-semibold text-blue-800 dark:text-slate-200">
                       💳 Wallet Address
                     </FormLabel>
                     <FormControl>
                       <Input
                         placeholder="0x..."
                         {...field}
-                        className="h-14 rounded-xl border-2 border-blue-200 bg-white/70 text-lg transition-all duration-300 placeholder:text-blue-400/60 focus:border-blue-500 focus:ring-blue-500/20 dark:border-blue-700 dark:bg-slate-800/70 dark:focus:border-blue-400"
+                        className="h-14 rounded-xl border-2 border-blue-200 bg-white/70 text-lg transition-all duration-300 placeholder:text-blue-400/60 focus:border-blue-500 focus:ring-blue-500/20 dark:border-slate-600 dark:bg-slate-800/70 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-blue-400"
                       />
                     </FormControl>
-                    <FormDescription className="flex items-center gap-2 font-medium text-blue-600/80 dark:text-blue-400/80">
+                    <FormDescription className="flex items-center gap-2 font-medium text-blue-600/80 dark:text-slate-400">
                       🔐 Your secure Ethereum wallet address
                     </FormDescription>
                     <FormMessage className="font-medium text-red-500" />
@@ -94,14 +95,14 @@ function InputSection() {
               />
               <Button
                 type="submit"
-                className="flex h-14 w-full transform items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 text-lg font-semibold text-white shadow-lg shadow-blue-500/25 transition-all duration-300 hover:scale-[1.02] hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 hover:shadow-xl hover:shadow-blue-500/30 active:scale-[0.98]"
+                className="flex h-14 w-full transform items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 text-lg font-semibold text-white shadow-lg shadow-blue-500/25 transition-all duration-300 hover:scale-[1.02] hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 hover:shadow-xl hover:shadow-blue-500/30 active:scale-[0.98] dark:shadow-blue-900/40"
               >
                 🌊 Claim Ocean Tokens
               </Button>
             </form>
           </Form>
         </CardContent>
-        <CardFooter className="pb-8 text-center text-sm font-medium text-blue-600/70 dark:text-blue-400/70">
+        <CardFooter className="pb-8 text-center text-sm font-medium text-blue-600/70 dark:text-slate-400">
           💧 Free tokens • 1 hour cooldown • Secure & Fast
         </CardFooter>
       </Card>
