@@ -4,6 +4,9 @@ import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useAccount, useWriteContract } from "wagmi";
+
+import OceanTokenAbi from "@/abi/OceanToken.json";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -24,6 +27,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
+import { Loader2Icon } from "lucide-react";
 
 const formSchema = z.object({
   wallet_address: z
@@ -34,19 +38,47 @@ const formSchema = z.object({
 });
 
 function InputSection() {
+  const { address } = useAccount();
+  const [txHash, setTxHash] = React.useState<string | null>(null);
+
+  // Contract/Ocean Token Address
+  const CONTRACT_ADDRESS = process.env
+    .NEXT_PUBLIC_BANK_CONTRACT_ADDRESS as `0x${string}`;
+
+  const { data: hash, isPending, writeContract } = useWriteContract();
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      wallet_address: "",
+      wallet_address: address ?? "",
     },
   });
 
-  // 2. Define a submit handler.
+  // Re-check if address is available and set it in the form (on Mount)
+  React.useEffect(() => {
+    if (address) {
+      form.setValue("wallet_address", address);
+    }
+  }, [address, form]);
+
+  // after the transaction is sent, update the txHash state
+  React.useEffect(() => {
+    if (hash) {
+      setTxHash(hash);
+    }
+  }, [hash]);
+
+  // submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values);
+    // send the transaction to the smart contract
+    writeContract({
+      address: CONTRACT_ADDRESS,
+      abi: OceanTokenAbi.abi,
+      functionName: "claim_tokens",
+      args: [values.wallet_address],
+    });
   }
 
   return (
@@ -96,8 +128,15 @@ function InputSection() {
               <Button
                 type="submit"
                 className="flex h-14 w-full transform items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 text-lg font-semibold text-white shadow-lg shadow-blue-500/25 transition-all duration-300 hover:scale-[1.02] hover:from-blue-700 hover:via-cyan-700 hover:to-blue-800 hover:shadow-xl hover:shadow-blue-500/30 active:scale-[0.98] dark:shadow-blue-900/40"
+                disabled={isPending}
               >
-                🌊 Claim Ocean Tokens
+                {isPending ? (
+                  <>
+                    <Loader2Icon className="h-5 w-5 animate-spin" />
+                  </>
+                ) : (
+                  <>🌊 Claim Ocean Tokens</>
+                )}
               </Button>
             </form>
           </Form>
