@@ -27,7 +27,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { Loader2Icon } from "lucide-react";
+import { Loader2Icon, CheckCircle, Copy, ExternalLink } from "lucide-react";
 
 const formSchema = z.object({
   wallet_address: z
@@ -40,6 +40,8 @@ const formSchema = z.object({
 function InputSection() {
   const { address } = useAccount();
   const [txHash, setTxHash] = React.useState<string | null>(null);
+  const [copiedTx, setCopiedTx] = React.useState(false);
+  const [copiedAddress, setCopiedAddress] = React.useState(false);
 
   // Contract/Ocean Token Address
   const CONTRACT_ADDRESS = process.env
@@ -69,9 +71,27 @@ function InputSection() {
     }
   }, [hash]);
 
+  // Copy functions
+  const copyToClipboard = async (text: string, type: "tx" | "address") => {
+    try {
+      await navigator.clipboard.writeText(text);
+      if (type === "tx") {
+        setCopiedTx(true);
+        setTimeout(() => setCopiedTx(false), 2000);
+      } else {
+        setCopiedAddress(true);
+        setTimeout(() => setCopiedAddress(false), 2000);
+      }
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+    }
+  };
+
   // submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+    // Reset previous transaction hash
+    setTxHash(null);
     // send the transaction to the smart contract
     writeContract({
       address: CONTRACT_ADDRESS,
@@ -141,8 +161,110 @@ function InputSection() {
             </form>
           </Form>
         </CardContent>
-        <CardFooter className="pb-8 text-center text-sm font-medium text-blue-600/70 dark:text-slate-400">
-          💧 Free tokens • 1 hour cooldown • Secure & Fast
+        <CardFooter className="flex flex-col space-y-4 pb-8">
+          {/* Success Message with Transaction Hash */}
+          {txHash && (
+            <div className="w-full space-y-3 rounded-xl border border-green-200/50 bg-gradient-to-r from-green-50/80 to-emerald-50/80 p-4 dark:border-green-800/30 dark:from-green-950/30 dark:to-emerald-950/30">
+              <div className="flex items-center gap-2 text-green-700 dark:text-green-400">
+                <CheckCircle className="h-5 w-5" />
+                <span className="font-semibold">
+                  🎉 Transaction Successful!
+                </span>
+              </div>
+
+              <div className="space-y-2">
+                <p className="text-sm font-medium text-green-600/80 dark:text-green-300/80">
+                  Transaction Hash:
+                </p>
+                <div className="flex items-center gap-2 rounded-lg bg-white/70 p-2 dark:bg-slate-800/70">
+                  <code className="flex-1 truncate font-mono text-xs text-green-700 dark:text-green-300">
+                    {txHash}
+                  </code>
+                  <button
+                    onClick={() => copyToClipboard(txHash, "tx")}
+                    className="rounded p-1 text-green-600 transition-colors hover:bg-green-100 dark:text-green-400 dark:hover:bg-green-900/30"
+                    title="Copy transaction hash"
+                  >
+                    {copiedTx ? (
+                      <CheckCircle className="h-4 w-4" />
+                    ) : (
+                      <Copy className="h-4 w-4" />
+                    )}
+                  </button>
+                  <a
+                    href={`https://etherscan.io/tx/${txHash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded p-1 text-green-600 transition-colors hover:bg-green-100 dark:text-green-400 dark:hover:bg-green-900/30"
+                    title="View on Etherscan"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Contract Address for Token Import */}
+          <div className="w-full space-y-3 rounded-xl border border-blue-200/50 bg-gradient-to-r from-blue-50/80 to-cyan-50/80 p-4 dark:border-slate-600/30 dark:from-slate-800/50 dark:to-slate-700/50">
+            <div className="flex items-center gap-2 text-blue-700 dark:text-slate-300">
+              <span className="text-lg">🪙</span>
+              <span className="font-semibold">
+                Import OceanToken to your wallet
+              </span>
+            </div>
+
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-blue-600/80 dark:text-slate-400">
+                Token Contract Address:
+              </p>
+              <div className="flex items-center gap-2 rounded-lg bg-white/70 p-2 dark:bg-slate-800/70">
+                <code className="flex-1 truncate font-mono text-xs text-blue-700 dark:text-slate-300">
+                  {CONTRACT_ADDRESS || "Contract not configured"}
+                </code>
+                {CONTRACT_ADDRESS && (
+                  <>
+                    <button
+                      onClick={() =>
+                        copyToClipboard(CONTRACT_ADDRESS, "address")
+                      }
+                      className="rounded p-1 text-blue-600 transition-colors hover:bg-blue-100 dark:text-slate-400 dark:hover:bg-slate-700"
+                      title="Copy contract address"
+                    >
+                      {copiedAddress ? (
+                        <CheckCircle className="h-4 w-4" />
+                      ) : (
+                        <Copy className="h-4 w-4" />
+                      )}
+                    </button>
+                    <a
+                      href={`https://etherscan.io/address/${CONTRACT_ADDRESS}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rounded p-1 text-blue-600 transition-colors hover:bg-blue-100 dark:text-slate-400 dark:hover:bg-slate-700"
+                      title="View contract on Etherscan"
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
+                  </>
+                )}
+              </div>
+              <div className="flex items-start gap-2 text-xs text-blue-600/70 dark:text-slate-500">
+                <span>💡</span>
+                <div>
+                  <p className="font-medium">Token Details:</p>
+                  <p>• Name: OceanToken</p>
+                  <p>• Symbol: OCT</p>
+                  <p>• Decimals: 18</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Footer Info */}
+          <div className="text-center text-sm font-medium text-blue-600/70 dark:text-slate-400">
+            💧 Free tokens • 1 hour cooldown • Secure & Fast
+          </div>
         </CardFooter>
       </Card>
     </section>
