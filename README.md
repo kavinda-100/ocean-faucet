@@ -5,8 +5,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Solidity](https://img.shields.io/badge/Solidity-^0.8.24-363636?logo=solidity)](https://soliditylang.org/)
 [![Foundry](https://img.shields.io/badge/Built%20with-Foundry-000000?logo=ethereum)](https://getfoundry.sh/)
-[![Test Coverage](https://img.shields.io/badge/Coverage-100%25-brightgreen)](./ocean-faucet-contract/test)
-[![Frontend](https://img.shields.io/badge/Frontend-In%20Progress-yellow?logo=react)](./frontend)
+[![Test Coverage](https://img.shields.io/badge/Test%20Coverage-100%25-brightgreen)](./ocean-faucet-contract/test)
+[![Frontend](https://img.shields.io/badge/Frontend-100%25-brightgreen?logo=react)](./frontend)
 
 ## 📋 Table of Contents
 
