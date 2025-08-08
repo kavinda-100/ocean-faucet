@@ -347,6 +347,7 @@ make deploy-local-verify
 ```
 
 **State Management:**
+
 - **State File**: `state.json` tracks the complete blockchain state
 - **Persistence**: Anvil can be restarted with previous state intact
 - **Makefile Commands**: Automated state management and deployment
@@ -362,6 +363,7 @@ make show-anvil-accounts   # Show test accounts
 ```
 
 **Deployment Networks:**
+
 ```bash
 # Local deployment (Anvil) - Currently deployed
 make deploy-local-verify
@@ -392,6 +394,7 @@ vercel deploy
 ```
 
 **Frontend Features:**
+
 - ✅ Connected to deployed Anvil contract
 - ✅ Ocean-themed UI with dark/light modes
 - ✅ Complete transaction handling
