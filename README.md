@@ -33,6 +33,7 @@
     - [🔄 In Progress Components](#-in-progress-components)
   - [🧪 Testing](#-testing)
     - [Smart Contract Testing](#smart-contract-testing)
+  - [🌆 Screenshots](#-screenshots)
   - [🚀 Deployment](#-deployment)
     - [Smart Contract Deployment](#smart-contract-deployment)
     - [Frontend Deployment](#frontend-deployment)
@@ -328,6 +329,45 @@ Our smart contract has comprehensive test coverage:
 - **Fuzz Tests**: 6 tests with 256 runs each
 - **Integration Tests**: Full contract interaction scenarios
 - **Security Tests**: Access control and edge cases
+
+## 🌆 Screenshots
+
+Take a visual tour of the OceanToken Faucet DApp and see its beautiful ocean-themed interface in action.
+
+<div align="center">
+  <img src="./images/img-1.png" alt="Ocean Faucet Homepage" width="800"/>
+  <p><em>🌊 Beautiful ocean-themed homepage with wallet connection</em></p>
+</div>
+
+<div align="center">
+  <img src="./images/img-2.png" alt="Token Claiming Interface" width="800"/>
+  <p><em>💰 Intuitive token claiming interface with real-time feedback</em></p>
+</div>
+
+<div align="center">
+  <img src="./images/img-3.png" alt="Wallet Connection" width="800"/>
+  <p><em>🔗 Frequently Asked Questions</em></p>
+</div>
+
+<div align="center">
+  <img src="./images/img-4.png" alt="Development Setup" width="800"/>
+  <p><em>⚙️ Frequently Asked Questions Con. and Footer</em></p>
+</div>
+
+<div align="center">
+  <img src="./images/img-5.png" alt="Transaction Success" width="800"/>
+  <p><em>✅ Successful transaction with real-time feedback and status updates</em></p>
+</div>
+
+<div align="center">
+  <img src="./images/img-6.png" alt="Dark Mode Interface" width="800"/>
+  <p><em>🔦 Error message when claiming tokens if transaction fails</em></p>
+</div>
+
+<div align="center">
+  <img src="./images/img-7.png" alt="FAQ Section" width="800"/>
+  <p><em>🌊 OCT Token after claiming in the user wallet</em></p>
+</div>
 
 ## 🚀 Deployment
 
