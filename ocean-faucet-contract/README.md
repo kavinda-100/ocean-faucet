@@ -38,6 +38,11 @@
 
 **OceanToken (OCT)** is a secure ERC20 token faucet that allows users to claim tokens with built-in rate limiting. The contract implements a time-based claiming mechanism where users can claim 10 OCT tokens every hour, making it perfect for testnet environments or token distribution scenarios.
 
+**🎯 Current Status**: ✅ **Deployed and Live** on Anvil Local Testnet
+- **Contract Address**: `0x5FbDB2315678afecb367f032d93f642f64180aa3`
+- **Network**: Anvil Local Chain (Chain ID: 31337)
+- **State Management**: Persistent state saved in `state.json`
+
 ## ✨ Features
 
 - 🪙 **ERC20 Compliant**: Full ERC20 standard implementation
@@ -174,15 +179,46 @@ forge snapshot
 
 ### 🚀 Deploy
 
-Deploy to a network:
+**Current Deployment Status**: ✅ **Deployed on Anvil**
+- **Address**: `0x5FbDB2315678afecb367f032d93f642f64180aa3`
+- **Network**: Anvil Local (Chain ID: 31337)
+
+**Using Makefile Commands** (Recommended):
 
 ```bash
-# Deploy to local network
+# State Management
+make persist-state-load      # Start Anvil with previous state
+make persist-state-dump      # Start Anvil with state saving
+make persist-state-clean     # Clean state.json file
+make persist-state-info      # Show state file information
+
+# Deployment
+make deploy-local           # Deploy to local Anvil
+make deploy-local-verify    # Deploy to local Anvil with verification
+make deploy-sepolia         # Deploy to Sepolia testnet
+
+# Utilities
+make check-anvil           # Check if Anvil is running
+make show-anvil-accounts   # Show default Anvil test accounts
+make create-env            # Create .env template file
+make help                  # Show all available commands
+```
+
+**Manual Deployment Commands**:
+
+```bash
+# Deploy to local Anvil (already deployed)
 forge script script/OceanTokenDeployer.s.sol --rpc-url http://localhost:8545 --private-key <your_private_key> --broadcast
 
 # Deploy to testnet (example: Sepolia)
 forge script script/OceanTokenDeployer.s.sol --rpc-url <sepolia_rpc_url> --private-key <your_private_key> --broadcast --verify
 ```
+
+**State Persistence**:
+The project uses `state.json` to maintain Anvil's blockchain state between sessions. This allows you to:
+- Restart Anvil with the same contract addresses
+- Preserve transaction history and account balances
+- Continue development without redeploying
 
 ## 📄 Contract Details
 
@@ -196,6 +232,9 @@ forge script script/OceanTokenDeployer.s.sol --rpc-url <sepolia_rpc_url> --priva
 | **Initial Supply** | 1,000,000 OCT |
 | **Claim Amount** | 10 OCT |
 | **Claim Interval** | 1 hour |
+| **Deployed Address** | `0x5FbDB2315678afecb367f032d93f642f64180aa3` |
+| **Network** | Anvil Local (Chain ID: 31337) |
+| **Owner** | `0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266` |
 
 ### Key Functions
 

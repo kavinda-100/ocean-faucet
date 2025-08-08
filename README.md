@@ -95,18 +95,19 @@ ocean-faucet/
 - ✅ **Security Hardened**: Input validation and error handling
 - ✅ **Event Logging**: Comprehensive transaction tracking
 - ✅ **100% Test Coverage**: Unit and fuzz testing
+- ✅ **Deployed on Anvil**: Contract deployed at `0x5FbDB2315678afecb367f032d93f642f64180aa3`
 
 ### 🌐 Frontend Features
 
 - ✅ **Next.js with TypeScript**: Modern React framework setup
 - ✅ **Wallet Integration**: RainbowKit + wagmi implementation
-- ✅ **Multi-Chain Support**: Mainnet, testnets, and local networks
-- ✅ **Theme System**: Dark/light mode with next-themes
-- ✅ **UI Components**: Shadcn/ui component library
-- ✅ **Responsive Header**: With wallet connection and theme toggle
-- 🔄 **Faucet Interface**: Token claiming UI (in progress)
-- 🔄 **Transaction History**: User claim tracking (planned)
-- 🔄 **Real-time Updates**: Live claim status and cooldown timers (planned)
+- ✅ **Ocean-Themed UI**: Stunning ocean-inspired design with animations
+- ✅ **Multi-Chain Support**: Mainnet, testnets, and local Anvil networks
+- ✅ **Theme System**: Dark/light mode with optimized ocean themes
+- ✅ **UI Components**: Shadcn/ui component library with custom styling
+- ✅ **Faucet Interface**: Fully functional token claiming UI
+- ✅ **Transaction Handling**: Complete success/error state management
+- ✅ **Real-time Updates**: Live transaction status and user feedback
 
 ## 🎯 Architecture
 
@@ -244,7 +245,7 @@ forge script script/OceanTokenDeployer.s.sol --rpc-url http://localhost:8545 --p
 
 **Contract Details:**
 
-- **Address**: TBD (after deployment)
+- **Address**: `0x5FbDB2315678afecb367f032d93f642f64180aa3` (Anvil Local)
 - **Name**: OceanToken (OCT)
 - **Initial Supply**: 1,000,000 OCT
 - **Claim Amount**: 10 OCT per request
@@ -252,7 +253,7 @@ forge script script/OceanTokenDeployer.s.sol --rpc-url http://localhost:8545 --p
 
 ### 🌐 Frontend Development
 
-The frontend is built with modern web technologies and Web3 integration:
+The frontend is fully developed and integrated with the deployed contract:
 
 **Tech Stack:**
 
@@ -290,24 +291,23 @@ bun run typecheck
 
 | Component | Status | Coverage | Description |
 |-----------|---------|----------|-------------|
-| **Smart Contract** | ✅ Complete | 100% | Fully tested and audited |
+| **Smart Contract** | ✅ Complete | 100% | Fully tested and deployed on Anvil |
 | **Unit Tests** | ✅ Complete | 100% | 10 comprehensive tests |
 | **Fuzz Tests** | ✅ Complete | 100% | 6 property-based tests |
-| **Deployment Scripts** | ✅ Complete | 100% | Automated deployment |
+| **Deployment Scripts** | ✅ Complete | 100% | Automated deployment with Makefile |
+| **State Management** | ✅ Complete | N/A | Anvil state persistence with `state.json` |
 | **Documentation** | ✅ Complete | N/A | Comprehensive docs |
 | **Frontend Setup** | ✅ Complete | N/A | Next.js + TypeScript + Bun |
 | **Web3 Integration** | ✅ Complete | N/A | wagmi + RainbowKit |
-| **UI Foundation** | ✅ Complete | N/A | Shadcn/ui + Tailwind CSS |
-| **Theme System** | ✅ Complete | N/A | Dark/light mode toggle |
+| **UI Foundation** | ✅ Complete | N/A | Ocean-themed Shadcn/ui + Tailwind CSS |
+| **Theme System** | ✅ Complete | N/A | Dark/light mode with ocean themes |
+| **Faucet Interface** | ✅ Complete | N/A | Fully functional token claiming |
+| **Contract Integration** | ✅ Complete | N/A | Connected to deployed Anvil contract |
+| **Transaction Handling** | ✅ Complete | N/A | Success/error state management |
 
 ### 🔄 In Progress Components
 
-| Component | Status | Progress | ETA |
-|-----------|---------|----------|-----|
-| **Faucet Interface** | 🔄 In Progress | 20% | TBD |
-| **Contract Integration** | 🔄 Planning | 0% | TBD |
-| **Transaction Handling** | 🔄 Planning | 0% | TBD |
-| **Error Handling** | 🔄 Planning | 0% | TBD |
+All core components are complete! The project is ready for production use.
 
 ## 🧪 Testing
 
@@ -333,14 +333,41 @@ Our smart contract has comprehensive test coverage:
 
 ### Smart Contract Deployment
 
-The contract can be deployed to various networks:
+The contract is successfully deployed on local Anvil chain:
 
 ```bash
-# Local deployment (Anvil)
-forge script script/OceanTokenDeployer.s.sol --rpc-url http://localhost:8545 --private-key <your_private_key> --broadcast
+# Start Anvil with state persistence
+cd ocean-faucet-contract
+make persist-state-load
+
+# Deploy to Anvil (if not already deployed)
+make deploy-local-verify
+
+# Contract Address: 0x5FbDB2315678afecb367f032d93f642f64180aa3
+```
+
+**State Management:**
+- **State File**: `state.json` tracks the complete blockchain state
+- **Persistence**: Anvil can be restarted with previous state intact
+- **Makefile Commands**: Automated state management and deployment
+
+```bash
+# Useful Makefile commands
+make persist-state-load    # Load Anvil with previous state
+make persist-state-dump    # Start Anvil with state saving
+make persist-state-clean   # Clean state file
+make persist-state-info    # Show state file information
+make deploy-local          # Deploy contract to Anvil
+make show-anvil-accounts   # Show test accounts
+```
+
+**Deployment Networks:**
+```bash
+# Local deployment (Anvil) - Currently deployed
+make deploy-local-verify
 
 # Testnet deployment (Sepolia)
-forge script script/OceanTokenDeployer.s.sol --rpc-url <sepolia_rpc_url> --private-key <your_private_key> --broadcast --verify
+make deploy-sepolia
 
 # Mainnet deployment
 forge script script/OceanTokenDeployer.s.sol --rpc-url <mainnet_rpc_url> --private-key <your_private_key> --broadcast --verify
@@ -348,8 +375,28 @@ forge script script/OceanTokenDeployer.s.sol --rpc-url <mainnet_rpc_url> --priva
 
 ### Frontend Deployment
 
-- **Development**: `bun run dev` - Local development server
-- **Production**: Vercel deployment ready
+The frontend is fully developed and ready for deployment:
+
+```bash
+cd ocean-faucet-ui
+
+# Development
+bun run dev
+
+# Production build
+bun run build
+bun run start
+
+# Deploy to Vercel (recommended)
+vercel deploy
+```
+
+**Frontend Features:**
+- ✅ Connected to deployed Anvil contract
+- ✅ Ocean-themed UI with dark/light modes
+- ✅ Complete transaction handling
+- ✅ Real-time status updates
+- ✅ Error handling and user feedback
 
 ## 🔒 Security
 

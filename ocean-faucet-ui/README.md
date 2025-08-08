@@ -47,18 +47,27 @@
 
 The **OceanToken Faucet Frontend** is a modern, responsive Web3 application that provides users with an intuitive interface to claim OceanToken (OCT) from the smart contract faucet. Built with cutting-edge technologies for optimal performance and user experience.
 
+**🎯 Current Status**: ✅ **Fully Deployed and Functional**
+- **Connected to**: OceanToken Contract `0x5FbDB2315678afecb367f032d93f642f64180aa3`
+- **Network**: Anvil Local Chain (Chain ID: 31337)
+- **Features**: Complete ocean-themed UI with transaction handling
+
 ## ✨ Features
 
 - 🚀 **Next.js 15**: Latest React framework with App Router
 - 🔗 **Web3 Integration**: wagmi + RainbowKit for seamless wallet connections
-- 🎨 **Modern UI**: Shadcn/ui components with Tailwind CSS
-- 🌙 **Dark/Light Theme**: Toggle between themes with system preference support
+- � **Ocean-Themed UI**: Stunning ocean-inspired design with animations and gradients
+- 🌙 **Optimized Dark/Light Theme**: Ocean-themed colors with slate-based dark mode
 - 📱 **Responsive Design**: Optimized for mobile and desktop
 - ⚡ **Bun Runtime**: Fast JavaScript runtime and package manager
 - 🔒 **Type Safety**: Full TypeScript implementation
-- 🎯 **Multi-Chain Support**: Mainnet, testnets, and local development
+- 🎯 **Multi-Chain Support**: Mainnet, testnets, and local Anvil development
 - 🔄 **Real-time Updates**: Live wallet and transaction status
 - 🎭 **Wallet Options**: Support for multiple wallet providers
+- ✅ **Transaction Handling**: Complete success/error state management
+- 💫 **User Feedback**: Toast notifications and status cards
+- 🎨 **Custom Components**: Beautiful UI components with ocean theming
+- 📊 **Contract Integration**: Fully connected to deployed OceanToken contract
 
 ## 🏗️ Tech Stack
 
@@ -183,11 +192,18 @@ src/
 
 ### **Blockchain Networks**
 
-- **Mainnet**: Ethereum mainnet
-- **Testnets**: Sepolia, and other test networks
-- **Local**: Anvil/Hardhat for development
+- **Anvil Local**: Connected to deployed OceanToken contract
+- **Mainnet**: Ethereum mainnet support
+- **Testnets**: Sepolia and other test networks
 
 ### **Smart Contract Integration**
+
+**Currently Connected Contract**:
+- **Address**: `0x5FbDB2315678afecb367f032d93f642f64180aa3`
+- **Network**: Anvil Local (Chain ID: 31337)
+- **Token**: OceanToken (OCT)
+- **Claim Amount**: 10 OCT per request
+- **Claim Interval**: 1 hour
 
 ```typescript
 // wagmi configuration with multiple chains
@@ -203,25 +219,38 @@ const config = getDefaultConfig({
 
 ### **Component Library**
 
-- **Shadcn/ui**: Pre-built accessible components
+- **Shadcn/ui**: Pre-built accessible components with ocean theming
 - **Radix Primitives**: Unstyled, accessible base components
-- **Custom Components**: Project-specific UI elements
+- **Custom Components**: Ocean-themed UI elements with animations
 
 ### **Design System**
 
+- **Ocean Theme**: Blue gradients and aqua accents
 - **Consistent Spacing**: Tailwind spacing scale
 - **Typography**: Geist font family
-- **Color Palette**: Semantic color tokens
+- **Color Palette**: Ocean-inspired color tokens with optimized dark mode
 - **Responsive Breakpoints**: Mobile-first approach
+- **Animations**: Smooth transitions and hover effects
+
+### **Key Components**
+
+- **Header**: Ocean-themed navigation with wallet connection
+- **InputSection**: Token claiming interface with transaction handling
+- **FAQ**: Ocean-specific frequently asked questions
+- **Footer**: Beautiful ocean-themed footer with links
+- **Success/Error Cards**: Real-time transaction feedback
+- **Theme Toggle**: Optimized dark/light mode switching
 
 ## 🌙 Theme System
 
 ### **Features**
 
-- **Dark/Light Mode**: Toggle between themes
+- **Ocean-Themed Light Mode**: Blue gradients and aqua accents
+- **Optimized Dark Mode**: Slate-based colors for better contrast
 - **System Preference**: Automatic theme detection
-- **Persistent Storage**: Theme preference saved
+- **Persistent Storage**: Theme preference saved locally
 - **Smooth Transitions**: Animated theme changes
+- **Component Adaptation**: All components support both themes
 
 ## 📱 Responsive Design
 
@@ -237,6 +266,37 @@ const config = getDefaultConfig({
 - **Flexible Layouts**: CSS Grid and Flexbox
 - **Adaptive Components**: Responsive component behavior
 - **Touch-friendly**: Optimized for touch interactions
+- **Ocean Theme**: Consistent across all screen sizes
+
+## 🚀 Deployment
+
+### **Development**
+
+```bash
+# Start development server
+bun run dev
+
+# Visit http://localhost:3000
+```
+
+### **Production**
+
+```bash
+# Build for production
+bun run build
+
+# Start production server
+bun run start
+```
+
+### **Vercel Deployment (Recommended)**
+
+```bash
+# Deploy to Vercel
+vercel deploy
+
+# Or connect GitHub repository for automatic deployments
+```
 
 ### **Docker Deployment**
 
@@ -251,15 +311,41 @@ EXPOSE 3000
 CMD ["bun", "run", "start"]
 ```
 
+### **Environment Configuration**
+
+Make sure to configure your environment variables:
+
+```bash
+# .env.local
+NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_project_id
+NEXT_PUBLIC_CHAIN_ID=31337  # Anvil local chain
+```
+
 ## 🔒 Security
 
 ### **Implemented Security Measures**
 
 - ✅ **Type Safety**: Full TypeScript implementation
 - ✅ **Environment Variables**: Secure configuration management
-- ✅ **Wallet Security**: Secure wallet connection patterns
-- ✅ **CSP Headers**: Content Security Policy
-- ✅ **HTTPS Only**: Secure communication in production
+- ✅ **Wallet Security**: Secure wallet connection patterns with RainbowKit
+- ✅ **Input Validation**: Form validation with Zod schemas
+- ✅ **Transaction Security**: Proper error handling and user confirmation
+- ✅ **State Management**: Secure state handling for transaction flows
+- ✅ **Contract Validation**: ABI-based type-safe contract interactions
+
+## 📊 Project Status
+
+**✅ Complete and Production Ready**
+
+- [x] Ocean-themed UI design
+- [x] Smart contract integration
+- [x] Wallet connection and management
+- [x] Transaction handling (success/error states)
+- [x] Responsive design
+- [x] Dark/light theme optimization
+- [x] Real-time user feedback
+- [x] Error handling and validation
+- [x] Production deployment ready
 
 ## 📜 License
 
